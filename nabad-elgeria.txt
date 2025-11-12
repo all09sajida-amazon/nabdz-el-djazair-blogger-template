@@ -1,0 +1,2169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' class='no-js' dir='rtl' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta charset='utf-8'/>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <title><data:blog.pageTitle/></title>
+  <b:include data='blog' name='all-head-content'/>
+  <!-- External Resources -->
+  <link href='https://fonts.googleapis.com/css?family=Tajawal&amp;display=swap' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css' rel='stylesheet'/>
+  <!-- SEO Meta Tags -->
+  <meta expr:content='data:blog.pageType == &quot;item&quot; ? &quot;article&quot; : &quot;website&quot;' property='og:type'/>
+  <meta expr:content='data:blog.pageName ? data:blog.pageName : data:blog.title' property='og:title'/>
+  <meta expr:content='data:blog.metaDescription' property='og:description'/>
+  <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
+  <meta expr:content='data:blog.title' property='og:site_name'/>
+  <b:if cond='data:blog.postImageUrl'>
+    <meta expr:content='data:blog.postImageUrl' property='og:image'/>
+  <b:else/>
+    <meta content='https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg' property='og:image'/>
+  </b:if>
+  <meta content='summary_large_image' name='twitter:card'/>
+  <meta expr:content='data:blog.pageName ? data:blog.pageName : data:blog.title' name='twitter:title'/>
+  <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+  <b:if cond='data:blog.postImageUrl'>
+    <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+  <b:else/>
+    <meta content='https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg' name='twitter:image'/>
+  </b:if>
+  <b:skin><![CDATA[/* نبض الجزائر - قالب بلوجر ذكي ومحسّن */ 
+  body{font-family:'Tajawal',sans-serif}
+  /* CSS Variables for Theming */
+  :root {
+    --primary: #006233;
+    --accent: #d21034;
+    --bg: #f5f5f5;
+    --card: #ffffff;
+    --txt: #222222;
+    --muted: #666666;
+    --radius: 8px;
+    --shadow: 0 2px 6px rgba(0,0,0,0.10);
+    --font: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  /* Global Reset Styles */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body, header, nav, .widget, .post, .post-card, .chat-window, .chat-header { transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease; }
+  body { font-family: var(--font); background: var(--bg); color: var(--txt); line-height: 1.7; }
+  img { max-width: 100%; height: auto; loading: lazy; }
+  a { text-decoration: none; color: var(--primary); }
+  a:hover { color: var(--accent); }
+  /* Utility Classes  Fixed Elements */
+  .theme-toggle, .back-to-top {
+    position: fixed; bottom: 20px; background: var(--accent); color: #fff; border: none;
+    border-radius: 50%; width: 50px; height: 50px; font-size: 20px; cursor: pointer;
+    box-shadow: var(--shadow); z-index: 999; transition: background .3s, transform .3s;
+  }
+  .theme-toggle { right: 20px; }
+  .theme-toggle:hover { background: var(--primary); transform: rotate(180deg); }
+  .back-to-top { left: 20px; opacity: 0; visibility: hidden; font-size: 22px; }
+  .back-to-top.show { opacity: 1; visibility: visible; }
+  .back-to-top:hover { background: var(--primary); }
+  /* Mood Help Popup */
+  #moodHelp { display: none; position: fixed; bottom: 80px; right: 20px; background: var(--card);
+    padding: 15px; border-radius: var(--radius); box-shadow: var(--shadow); max-width: 250px; z-index: 998; font-size: 0.95rem; }
+  #moodHelp b { display: block; margin-bottom: 6px; }
+  #moodHelp textarea { width: 100%; margin-top: 6px; padding: 6px; border: 1px solid #ddd;
+    border-radius: 4px; resize: none; font-family: var(--font); }
+  #moodHelp button { margin-top: 8px; margin-inline-start: 4px; padding: 5px 10px; border: none;
+    border-radius: 4px; font-size: 0.9rem; cursor: pointer; }
+  #moodHelp button:first-child { background: var(--accent); color: #fff; }
+  /* Identity Creator Modal */
+  #identity-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; }
+  #identity-modal .modal-content { background: var(--card); padding: 20px; border-radius: var(--radius); max-width: 400px; width: 90%; text-align: center; }
+  #identity-preview { margin: 15px 0; padding: 15px; background: #f0f8ff; border-radius: 8px; font-family: var(--font); }
+  /* Calm Mode */
+  body.calm-mode {
+    --bg: #0f0f15 !important;
+    --card: #1a1a22 !important;
+    --txt: #e0e0ff !important;
+    --muted: #a0a0c0 !important;
+    animation: none !important;
+  }
+  body.calm-mode #digital-soul-container,
+  body.calm-mode .chat-bot-container,
+  body.calm-mode .theme-toggle,
+  body.calm-mode .back-to-top,
+  body.calm-mode nav .search-form {
+    display: none !important;
+  }
+  body.calm-mode .post-body {
+    font-size: 1.2rem;
+    line-height: 1.9;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  /* TTS Button */
+  .tts-button {
+    margin-top: 15px;
+    background: #4a148c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font);
+  }
+  /* Export Button */
+  .export-mood-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-family: var(--font);
+  }
+  /* Header */
+  header { background: var(--primary); color: #fff; text-align: center; padding: 25px 15px; }
+  header .logo-link { display: inline-block; border: none; outline: none; }
+  header .logo { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #fff; margin-bottom: 10px; object-fit: cover; }
+  header h1 { font-size: 2.2rem; }
+  header p { font-size: 1rem; opacity: .9; }
+  header #dynamic-header-message { font-size: 0.9rem; margin-top: 10px; opacity: 0.8; transition: opacity 0.5s ease; }
+  /* Navigation */
+  nav { background: var(--accent); display: flex; justify-content: center; align-items: center; flex-wrap: wrap; padding: 10px; gap: 10px; }
+  nav a { color: #fff; font-weight: 700; padding: 6px 10px; border-radius: var(--radius); transition: background .3s; }
+  nav a:hover { background: rgba(255,255,255,0.20); }
+  .search-form { display: flex; align-items: center; background: rgba(255,255,255,0.2); border-radius: var(--radius); padding: 4px 10px; }
+  .search-form input { background: none; border: none; color: #fff; padding: 4px; font-family: var(--font); font-size: 1rem; width: 150px; }
+  .search-form input::placeholder { color: rgba(255,255,255,0.7); }
+  .search-form input:focus { outline: none; }
+  .search-form button { background: none; border: none; color: #fff; cursor: pointer; font-size: 1.1rem; }
+  .search-form button#voice-search-btn { cursor: pointer; }
+  .search-form button#voice-search-btn.listening { color: #ffeb3b; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+  /* Chatbot "Nabdz" */
+  .chat-bot-container { position: fixed; bottom: 80px; left: 20px; z-index: 1000; font-family: var(--font); }
+  .chat-bubble { width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer;
+    box-shadow: var(--shadow); transition: transform 0.3s, background 0.3s; }
+  .chat-bubble:hover { transform: scale(1.1); background: var(--accent); }
+  .chat-window { position: absolute; bottom: 80px; left: 0; width: 350px; height: 450px;
+    background: var(--card); border-radius: var(--radius); box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: none; flex-direction: column; overflow: hidden; }
+  .chat-window.open { display: flex; animation: slideUp 0.3s ease-out; }
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .chat-header { background: var(--primary); color: white; padding: 15px; text-align: center; font-weight: bold; }
+  .chat-body { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+  .chat-message { max-width: 80%; padding: 10px 15px; border-radius: 18px; line-height: 1.4; }
+  .chat-message.user { background: var(--accent); color: white; align-self: flex-end; border-bottom-right-radius: 5px; }
+  .chat-message.bot { background: var(--bg); color: var(--txt); align-self: flex-start; border-bottom-left-radius: 5px; }
+  .chat-footer { display: flex; padding: 10px; border-top: 1px solid #eee; }
+  .chat-input { flex-grow: 1; border: 1px solid #ddd; border-radius: 20px; padding: 10px 15px; font-size: 14px; }
+  .chat-send-btn { background: var(--primary); color: white; border: none; border-radius: 50%;
+    width: 35px; height: 35px; margin-right: 5px; cursor: pointer; }
+  .typing-indicator { display: none; align-self: flex-start; }
+  .typing-indicator span { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--muted); margin: 0 2px; animation: bounce 1.4s infinite ease-in-out both; }
+  .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+  .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+  @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+  /* Dynamic Mood Body Classes */
+  body.mood-positive { --primary: #2e7d32; --accent: #ffb74d; }
+  body.mood-negative { --primary: #4a148c; --accent: #f44336; }
+  body.mood-neutral { --primary: #1565c0; --accent: #7c4dff; }
+  /* Digital Soul Canvas */
+  #digital-soul-container { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 150px; height: 150px; pointer-events: none; z-index: 1; opacity: 0.4; transition: opacity 0.5s ease; }
+  #digital-soul-container:hover { opacity: 0.8; }
+  #digital-soul-canvas { width: 100%; height: 100%; }
+  /* Main Layout */
+  .main-wrapper { max-width: 1100px; margin: 25px auto; padding: 0 15px; display: flex; gap: 20px; }
+  #main { flex: 1; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+  .breadcrumb { font-size: 0.9rem; margin-bottom: 20px; padding: 10px; background: var(--bg);
+    border-radius: var(--radius); color: var(--muted); }
+  .breadcrumb a { color: var(--primary); }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { margin: 0 8px; }
+  .breadcrumb .current { color: var(--txt); font-weight: bold; }
+  /* Post Styles */
+  .post { margin-bottom: 25px; }
+  .post-title { font-size: 1.8rem; margin-bottom: 10px; }
+  .post-title a { color: var(--txt); }
+  .post-title a:hover { color: var(--accent); }
+  .post-body { font-size: 1.1rem; line-height: 1.8; }
+  .post-body img { max-width: 100%; height: auto; border-radius: var(--radius); margin: 15px 0; }
+  .post-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; font-size: 0.9rem; color: var(--muted); }
+  .post-footer a { color: var(--muted); }
+  .post-footer a:hover { color: var(--accent); }
+  /* Post Card for List View */
+  .post-card { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+  .post-card:last-child { border: none; }
+  .post-card h2 { font-size: 1.5rem; margin-bottom: 8px; }
+  .post-card h2 a { color: var(--txt); }
+  .post-card h2 a:hover { color: var(--accent); }
+  .post-card .snippet { color: var(--muted); }
+  .post-card .read-more { display: inline-block; margin-top: 10px; background: var(--accent);
+    color: #fff; padding: 6px 14px; border-radius: var(--radius); }
+  .post-card .read-more:hover { background: var(--primary); }
+  /* Sidebar */
+  #side { width: 300px; }
+  .widget { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 15px; margin-bottom: 20px; }
+  .widget h3 { margin-bottom: 10px; font-size: 1.1rem; }
+  /* Visitor Dashboard Widget */
+  #visitor-dashboard p { margin: 8px 0; font-size: 0.95rem; }
+  #visitor-dashboard button { margin-top: 10px; padding: 6px 12px; background: var(--accent); color: white; border: none; border-radius: 4px; cursor: pointer; }
+  /* Footer */
+  footer { background: #111; color: #ddd; text-align: center; padding: 20px 10px; margin-top: 40px; font-size: .9rem; }
+  /* Responsive Design */
+  @media(max-width: 768px) {
+    .main-wrapper { flex-direction: column; }
+    #side { width: 100%; }
+    .search-form input { width: 120px; }
+    .chat-window { width: 300px; height: 400px; }
+    #digital-soul-container { width: 100px; height: 100px; }
+  }
+  ]]></b:skin>
+</head>
+<body>
+  <!-- Digital Soul Background -->
+  <div id='digital-soul-container'>
+    <canvas id='digital-soul-canvas'/>
+  </div>
+  <!-- Fixed UI Elements -->
+  <button aria-label='تبديل الوضع الليلي' class='theme-toggle' id='themeToggle'>🌓</button>
+  <button aria-label='العودة إلى الأعلى' class='back-to-top' id='backToTop'>&#8593;</button>
+  <div id='moodHelp'>
+    <b>أحسست أنك منزعج&#8230; كيف يمكننا المساعدة&#1567;</b>
+    <textarea id='moodMsg' placeholder='اخبرنا بما يضايقك' rows='3'/>
+    <button onclick='NabdzApp.mood.helpPopup.send()'>أرسل</button>
+    <button onclick='NabdzApp.mood.helpPopup.close()'>إغلاق</button>
+  </div>
+
+  <!-- Identity Modal -->
+  <div id='identity-modal'>
+    <div class='modal-content'>
+      <h3>أنشئ هويتك الجزائرية</h3>
+      <input id='identity-name' placeholder='اكتب اسمك الكريم' style='width:100%; padding:8px; margin:10px 0; border:1px solid #ccc; border-radius:6px; font-family:var(--font);' type='text'/>
+      <select id='identity-wilaya' style='width:100%; padding:8px; margin:10px 0; border:1px solid #ccc; border-radius:6px;'>
+        <option value=''>-- اختر ولايتك --</option>
+        <option value='الجزائر'>الجزائر</option>
+        <option value='وهران'>وهران</option>
+        <option value='قسنطينة'>قسنطينة</option>
+        <!-- أضف باقي الولايات حسب الحاجة -->
+      </select>
+      <div id='identity-preview'/>
+      <button onclick='NabdzApp.identity.generate()' style='background:var(--accent); color:white; border:none; padding:8px 16px; border-radius:6px; margin:5px;'>ول&#1617;د هويتي</button>
+      <button onclick='NabdzApp.identity.download()' style='background:#666; color:white; border:none; padding:8px 16px; border-radius:6px; margin:5px;'>تنزيل كصورة</button>
+      <button onclick='NabdzApp.identity.close()' style='float:right; background:none; border:none; color:#999;'>إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Chatbot "Nabdz" -->
+  <div class='chat-bot-container' id='chatBot'>
+    <div class='chat-window' id='chatWindow'>
+      <div class='chat-header'>نبض - مساعدك الذكي</div>
+      <div class='chat-body' id='chatBody'>
+        <div class='chat-message bot'>أهلا&#1611; بك! أنا نبض&#1548; مساعدك الشخصي. كيف يمكنني مساعدتك اليوم&#1567;</div>
+      </div>
+      <div class='typing-indicator' id='typingIndicator'><span/><span/><span/></div>
+      <div class='chat-footer'>
+        <button class='chat-send-btn' id='chatSendBtn'><i class='fas fa-paper-plane'/></button>
+        <input class='chat-input' id='chatInput' placeholder='اكتب رسالتك...' type='text'/>
+      </div>
+    </div>
+    <div class='chat-bubble' id='chatBubble'><i class='fas fa-comments'/></div>
+  </div>
+  <header>
+    <a class='logo-link' expr:href='data:blog.homepageUrl' title='العودة إلى الرئيسية'>
+      <img alt='شعار نبض الجزائر' class='logo' src='https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg'/>
+    </a>
+    <h1>نبض الجزائر</h1>
+    <p>صوتك اليومي من القلب الجزائري</p>
+    <div id='dynamic-header-message'/>
+  </header>
+  <nav>
+    <a href='/'>الرئيسية</a>
+    <a href='/search/label/أخبار'>أخبار</a>
+    <a href='/search/label/رأي'>رأي</a>
+    <a href='/search/label/ثقافة'>ثقافة</a>
+    <a href='javascript:void(0)' onclick='NabdzApp.identity.open()'>مولد الهوية</a>
+    <a href='/p/contact.html'>تواصل</a>
+    <form action='/search' class='search-form' method='get'>
+      <label for='search-input' style='display:none;'>ابحث</label>
+      <input id='search-input' name='q' placeholder='ابحث عن موضوع...' type='search'/>
+      <button id='voice-search-btn' title='بحث بالصوت' type='button'><i class='fas fa-microphone'/></button>
+      <button type='submit'>🔍</button>
+    </form>
+  </nav>
+  <div class='main-wrapper'>
+    <main id='main'>
+      <b:section class='main-section' id='main-section' name='المحتوى الرئيسي' showaddelement='yes'>
+        <b:widget id='HTML5' locked='false' title='نظام الطاقة' type='HTML'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<button onclick="diagnoseNabdzApp()" style="background: var(--primary); color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 10px;">
+  تشخيص نظام نبض
+</button>
+<div id="diagnostic-result" style="background: var(--bg); padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.9rem; color: var(--txt); white-space: pre-wrap;"></div>
+
+<script>
+  function diagnoseNabdzApp() {
+    const resultDiv = document.getElementById('diagnostic-result');
+    let report = "=== تقرير تشخيص نبض ===\n\n";
+
+    // التحقق من وجود الكائن الرئيسي
+    if (window.NabdzApp) {
+      report += "✅ كائن NabdzApp الرئيسي موجود.\n";
+      report += "المكونات الموجودة داخله: " + Object.keys(window.NabdzApp).join(', ') + "\n\n";
+
+      // التحقق من وجود وحدة الطاقة
+      if (window.NabdzApp.energy) {
+        report += "✅ وحدة الطاقة (NabdzApp.energy) موجودة.\n";
+        report += "الدوال الموجودة: " + Object.keys(window.NabdzApp.energy).join(', ') + "\n\n";
+        
+        // التحقق من وجود دالة إضافة النقاط
+        if (typeof window.NabdzApp.energy.addPoints === 'function') {
+          report += "✅ دالة addPoints جاهزة للعمل.\n\n";
+          report += "👍 النظام يعمل بشكل مثالي! يجب أن تتمكن من إضافة النقاط.";
+        } else {
+          report += "❌ دالة addPoints غير موجودة أو ليست دالة.";
+        }
+
+      } else {
+        report += "❌ وحدة الطاقة (NabdzApp.energy) غير موجودة.\n";
+        report += "السبب المحتمل: هناك خطأ في كود الطاقة الذي تم إضافته قبل وسم </body>.";
+      }
+    } else {
+      report += "❌ كائن NabdzApp الرئيسي غير موجود على الإطلاق.\n";
+      report += "السبب المحتمل: هناك خطأ كبير في كود JavaScript الرئيسي يمنع تحميله.";
+    }
+
+    report += "\n=========================";
+    resultDiv.textContent = report;
+  }
+</script>]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+  <!-- only display title if it's non-empty -->
+  <b:if cond='data:title != &quot;&quot;'>
+    <h2 class='title'><data:title/></h2>
+  </b:if>
+  <div class='widget-content'>
+    <data:content/>
+  </div>
+
+  <b:include name='quickedit'/>
+</b:includable>
+        </b:widget>
+        <b:widget id='HTML4' locked='false' title='بطاقة الشرارة' type='HTML'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<!-- بداية كود بطاقة الشرارة -->
+<style>
+  .spark-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    font-family: var(--font);
+    border: 1px solid rgba(0, 98, 51, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .spark-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, var(--primary), transparent);
+    animation: rotate 8s linear infinite;
+    opacity: 0.1;
+  }
+  @keyframes rotate { 100% { transform: rotate(360deg); } }
+
+  .spark-header {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 15px;
+  }
+  .spark-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+  }
+  .spark-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--txt);
+    margin: 0;
+  }
+  .spark-wilaya {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin: 5px 0 0;
+  }
+
+  .spark-level {
+    background: var(--bg);
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin: 15px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .spark-level-title {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 5px;
+  }
+  .spark-level-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .spark-level-icon {
+    font-size: 1.2rem;
+  }
+
+  .spark-progress {
+    background: #e0e0e0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .spark-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    width: 65%; /* قيمة وهمية للتوضيح */
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  .spark-achievements {
+    margin-top: 15px;
+    position: relative;
+    z-index: 1;
+  }
+  .spark-achievements-title {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .spark-badges {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .spark-badge {
+    font-size: 1.5rem;
+    opacity: 0.4;
+    transition: transform 0.2s, opacity 0.2s;
+    cursor: default;
+  }
+  .spark-badge.earned {
+    opacity: 1;
+  }
+  .spark-badge.earned:hover {
+    transform: scale(1.2);
+  }
+</style>
+
+<div class="spark-card">
+  <div class="spark-header">
+    <div class="spark-avatar">أ</div>
+    <h3 class="spark-name">أحمد الجزائري</h3>
+    <p class="spark-wilaya">📍 ولاية الجزائر</p>
+  </div>
+
+  <div class="spark-level">
+    <p class="spark-level-title">مستوى طاقتك</p>
+    <p class="spark-level-name">
+      <span class="spark-level-icon">🌊</span>
+      <span>موجة</span>
+    </p>
+    <div class="spark-progress">
+      <div class="spark-progress-bar"></div>
+    </div>
+  </div>
+
+  <div class="spark-achievements">
+    <p class="spark-achievements-title">إنجازاتك</p>
+    <div class="spark-badges">
+      <span class="spark-badge earned" title="صوت الجزائر">🎤</span>
+      <span class="spark-badge earned" title="الأمل">☀️</span>
+      <span class="spark-badge earned" title="السفير">🤝</span>
+      <span class="spark-badge" title="المُلهم">💡</span>
+      <span class="spark-badge" title="خبير تقني">🛠️</span>
+    </div>
+  </div>
+</div>
+<!-- نهاية كود بطاقة الشرارة -->]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+  <!-- only display title if it's non-empty -->
+  <b:if cond='data:title != &quot;&quot;'>
+    <h2 class='title'><data:title/></h2>
+  </b:if>
+  <div class='widget-content'>
+    <data:content/>
+  </div>
+
+  <b:include name='quickedit'/>
+</b:includable>
+        </b:widget>
+        <b:widget id='Blog1' locked='true' title='رسائل المدونة الإلكترونية' type='Blog' version='1'>
+          <b:widget-settings>
+            <b:widget-setting name='showDateHeader'>true</b:widget-setting>
+            <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
+            <b:widget-setting name='showShareButtons'>true</b:widget-setting>
+            <b:widget-setting name='authorLabel'>By</b:widget-setting>
+            <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+            <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
+            <b:widget-setting name='showAuthor'>false</b:widget-setting>
+            <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
+            <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+            <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+            <b:widget-setting name='timestampLabel'>-</b:widget-setting>
+            <b:widget-setting name='reactionsLabel'/>
+            <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+            <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+            <b:widget-setting name='showLabels'>true</b:widget-setting>
+            <b:widget-setting name='showLocation'>false</b:widget-setting>
+            <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+            <b:widget-setting name='postsPerAd'>3</b:widget-setting>
+            <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+            <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+            <b:widget-setting name='showInlineAds'>true</b:widget-setting>
+            <b:widget-setting name='showReactions'>false</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main' var='top'>
+  <b:if cond='!data:mobile'>
+    <!-- posts -->
+    <div class='blog-posts hfeed'>
+
+      <b:include data='top' name='status-message'/>
+
+      <b:loop values='data:posts' var='post'>
+        <b:if cond='data:post.isDateStart and not data:post.isFirstPost'>
+          &lt;/div&gt;&lt;/div&gt;
+        </b:if>
+        <b:if cond='data:post.isDateStart'>
+          &lt;div class=&quot;date-outer&quot;&gt;
+        </b:if>
+        <b:if cond='data:post.dateHeader'>
+          <h2 class='date-header'><span><data:post.dateHeader/></span></h2>
+        </b:if>
+        <b:if cond='data:post.isDateStart'>
+          &lt;div class=&quot;date-posts&quot;&gt;
+        </b:if>
+        <div class='post-outer'>
+          <b:include data='post' name='post'/>
+          <b:include cond='data:blog.pageType in {&quot;static_page&quot;,&quot;item&quot;}' data='post' name='comment_picker'/>
+        </div>
+
+        <!-- Ad -->
+        <b:if cond='data:post.includeAd'>
+          <div class='inline-ad'>
+            <data:adCode/>
+          </div>
+        </b:if>
+      </b:loop>
+      <b:if cond='data:numPosts != 0'>
+        &lt;/div&gt;&lt;/div&gt;
+      </b:if>
+    </div>
+
+    <!-- navigation -->
+    <b:include name='nextprev'/>
+
+    <!-- feed links -->
+    <b:include name='feedLinks'/>
+
+  <b:else/>
+    <b:include name='mobile-main'/>
+  </b:if>
+</b:includable>
+          <b:includable id='backlinkDeleteIcon' var='backlink'/>
+          <b:includable id='backlinks' var='post'/>
+          <b:includable id='comment-form' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <b:if cond='data:mobile'>
+      <h4 id='comment-post-message'>
+        <a expr:id='data:widget.instanceId + &quot;_comment-editor-toggle-link&quot;' href='javascript:void(0)'><data:postCommentMsg/></a></h4>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+    <b:else/>
+      <h4 id='comment-post-message'><data:postCommentMsg/></h4>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    </b:if>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+          <b:includable id='commentDeleteIcon' var='comment'>
+  <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+    <b:if cond='data:showCmtPopup'>
+      <div class='goog-toggle-button'>
+        <div class='goog-inline-block comment-action-icon'/>
+      </div>
+    <b:else/>
+      <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:top.deleteCommentMsg'>
+        <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+          <b:includable id='comment_count_picker' var='post'>
+  <a class='comment-link' expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'>
+    <data:post.commentLabelFull/>:
+  </a>
+</b:includable>
+          <b:includable id='comment_picker' var='post'>
+  <b:if cond='data:post.showThreadedComments'>
+    <b:include data='post' name='threaded_comments'/>
+  <b:else/>
+    <b:include data='post' name='comments'/>
+  </b:if>
+</b:includable>
+          <b:includable id='comments' var='post'>
+  <div class='comments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
+      <h4><data:post.commentLabelFull/>:</h4>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <span class='paging-control-container'>
+          <b:if cond='data:post.hasOlderLinks'>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'><data:post.oldestLinkText/></a>
+              &#160;
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'><data:post.olderLinkText/></a>
+              &#160;
+          </b:if>
+
+          <data:post.commentRangeText/>
+
+          <b:if cond='data:post.hasNewerLinks'>
+            &#160;
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'><data:post.newerLinkText/></a>
+            &#160;
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'><data:post.newestLinkText/></a>
+          </b:if>
+        </span>
+      </b:if>
+
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <dl expr:class='data:post.avatarIndentClass' id='comments-block'>
+          <b:loop values='data:post.comments' var='comment'>
+            <dt expr:class='&quot;comment-author &quot; + data:comment.authorClass' expr:id='data:comment.anchorName'>
+              <b:if cond='data:comment.favicon'>
+                <img expr:src='data:comment.favicon' height='16px' style='margin-bottom:-2px;' width='16px'/>
+              </b:if>
+              <a expr:name='data:comment.anchorName'/>
+              <b:if cond='data:blog.enabledCommentProfileImages'>
+                <data:comment.authorAvatarImage/>
+              </b:if>
+              <b:if cond='data:comment.authorUrl'>
+                <a expr:href='data:comment.authorUrl' rel='nofollow'><data:comment.author/></a>
+              <b:else/>
+                <data:comment.author/>
+              </b:if>
+              <data:commentPostedByMsg/>
+            </dt>
+            <dd class='comment-body' expr:id='data:widget.instanceId + data:comment.cmtBodyIdPostfix'>
+              <b:if cond='data:comment.isDeleted'>
+                <span class='deleted-comment'><data:comment.body/></span>
+              <b:else/>
+                <p>
+                  <data:comment.body/>
+                </p>
+              </b:if>
+            </dd>
+            <dd class='comment-footer'>
+              <span class='comment-timestamp'>
+                <a expr:href='data:comment.url' title='comment permalink'>
+                  <data:comment.timestamp/>
+                </a>
+                <b:include data='comment' name='commentDeleteIcon'/>
+              </span>
+            </dd>
+          </b:loop>
+        </dl>
+      </div>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <span class='paging-control-container'>
+          <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+            <data:post.oldestLinkText/>
+          </a>
+          <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+            <data:post.olderLinkText/>
+          </a>
+          &#160;
+          <data:post.commentRangeText/>
+          &#160;
+          <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+            <data:post.newerLinkText/>
+          </a>
+          <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+            <data:post.newestLinkText/>
+          </a>
+        </span>
+      </b:if>
+
+      <p class='comment-footer'>
+        <b:if cond='data:post.embedCommentForm'>
+          <b:if cond='data:post.allowNewComments'>
+            <b:include data='post' name='comment-form'/>
+          <b:else/>
+            <data:post.noNewCommentsText/>
+          </b:if>
+        <b:elseif cond='data:post.allowComments'/>
+          <a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:postCommentMsg/></a>
+        </b:if>
+      </p>
+    </b:if>
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+
+  </div>
+</b:includable>
+          <b:includable id='feedLinks'>
+  <b:if cond='data:blog.pageType != &quot;item&quot;'> <!-- Blog feed links -->
+    <b:if cond='data:feedLinks'>
+      <div class='blog-feeds'>
+        <b:include data='feedLinks' name='feedLinksBody'/>
+      </div>
+    </b:if>
+
+  <b:else/> <!--Post feed links -->
+    <div class='post-feeds'>
+      <b:loop values='data:posts' var='post'>
+        <b:include cond='data:post.allowComments and data:post.feedLinks' data='post.feedLinks' name='feedLinksBody'/>
+      </b:loop>
+    </div>
+  </b:if>
+</b:includable>
+          <b:includable id='feedLinksBody' var='links'>
+  <div class='feed-links'>
+  <data:feedLinksMsg/>
+  <b:loop values='data:links' var='f'>
+     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
+  </b:loop>
+  </div>
+</b:includable>
+          <b:includable id='iframe_comments' var='post'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+          <b:includable id='mobile-index-post' var='post'>
+  <div class='mobile-date-outer date-outer'>
+    <b:if cond='data:post.dateHeader'>
+      <div class='date-header'>
+        <span><data:post.dateHeader/></span>
+      </div>
+    </b:if>
+
+    <div class='mobile-post-outer'>
+      <a expr:href='data:post.url'>
+        <h3 class='mobile-index-title entry-title' itemprop='name'>
+          <data:post.title/>
+        </h3>
+
+        <div class='mobile-index-arrow'>&amp;rsaquo;</div>
+
+        <div class='mobile-index-contents'>
+          <b:if cond='data:post.thumbnailUrl'>
+            <div class='mobile-index-thumbnail'>
+              <div class='Image'>
+                <img expr:src='data:post.thumbnailUrl'/>
+              </div>
+            </div>
+          </b:if>
+
+          <div class='post-body'>
+            <b:if cond='data:post.snippet'><data:post.snippet/></b:if>
+          </div>
+        </div>
+
+        <div style='clear: both;'/>
+      </a>
+
+      <div class='mobile-index-comment'>
+        <b:include cond='data:blog.pageType != &quot;static_page&quot;                          and data:post.allowComments                          and data:post.numComments != 0' data='post' name='comment_count_picker'/>
+      </div>
+    </div>
+  </div>
+</b:includable>
+          <b:includable id='mobile-main' var='top'>
+    <!-- posts -->
+    <div class='blog-posts hfeed'>
+
+      <b:include data='top' name='status-message'/>
+
+      <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <b:loop values='data:posts' var='post'>
+          <b:include data='post' name='mobile-index-post'/>
+        </b:loop>
+      <b:else/>
+        <b:loop values='data:posts' var='post'>
+          <b:include data='post' name='mobile-post'/>
+        </b:loop>
+      </b:if>
+    </div>
+
+   <b:include name='mobile-nextprev'/>
+</b:includable>
+          <b:includable id='mobile-nextprev'>
+  <div class='blog-pager' id='blog-pager'>
+    <b:if cond='data:newerPageUrl'>
+      <div class='mobile-link-button' id='blog-pager-newer-link'>
+      <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'>&amp;lsaquo;</a>
+      </div>
+    </b:if>
+
+    <b:if cond='data:olderPageUrl'>
+      <div class='mobile-link-button' id='blog-pager-older-link'>
+      <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'>&amp;rsaquo;</a>
+      </div>
+    </b:if>
+
+    <div class='mobile-link-button' id='blog-pager-home-link'>
+    <a class='home-link' expr:href='data:blog.homepageUrl'><data:homeMsg/></a>
+    </div>
+
+    <div class='mobile-desktop-link'>
+      <a class='home-link' expr:href='data:desktopLinkUrl'><data:desktopLinkMsg/></a>
+    </div>
+
+  </div>
+  <div class='clear'/>
+</b:includable>
+          <b:includable id='mobile-post' var='post'>
+  <div class='date-outer'>
+    <b:if cond='data:post.dateHeader'>
+      <h2 class='date-header'><span><data:post.dateHeader/></span></h2>
+    </b:if>
+    <div class='date-posts'>
+      <div class='post-outer'>
+
+        <div class='post hentry uncustomized-post-template' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+          <b:if cond='data:post.thumbnailUrl'>
+            <meta expr:content='data:post.thumbnailUrl' itemprop='image_url'/>
+          </b:if>
+          <meta expr:content='data:blog.blogId' itemprop='blogId'/>
+          <meta expr:content='data:post.id' itemprop='postId'/>
+
+          <a expr:name='data:post.id'/>
+          <b:if cond='data:post.title'>
+            <h3 class='post-title entry-title' itemprop='name'>
+              <b:if cond='data:post.link'>
+                <a expr:href='data:post.link'><data:post.title/></a>
+              <b:elseif cond='data:post.url and data:blog.url != data:post.url'/>
+                <a expr:href='data:post.url'><data:post.title/></a>
+              <b:else/>
+                <data:post.title/>
+              </b:if>
+            </h3>
+          </b:if>
+
+          <div class='post-header'>
+            <div class='post-header-line-1'/>
+          </div>
+
+          <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='articleBody'>
+            <data:post.body/>
+            <div style='clear: both;'/> <!-- clear for photos floats -->
+          </div>
+
+          <div class='post-footer'>
+            <div class='post-footer-line post-footer-line-1'>
+              <span class='post-author vcard'>
+                <b:if cond='data:top.showAuthor'>
+                  <b:if cond='data:post.authorProfileUrl'>
+                    <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                      <meta expr:content='data:post.authorProfileUrl' itemprop='url'/>
+                      <a expr:href='data:post.authorProfileUrl' rel='author' title='author profile'>
+                        <span itemprop='name'><data:post.author/></span>
+                      </a>
+                    </span>
+                  <b:else/>
+                    <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                      <span itemprop='name'><data:post.author/></span>
+                    </span>
+                  </b:if>
+                </b:if>
+              </span>
+
+              <span class='post-timestamp'>
+                <b:if cond='data:top.showTimestamp'>
+                  <data:top.timestampLabel/>
+                  <b:if cond='data:post.url'>
+                    <meta expr:content='data:post.url.canonical' itemprop='url'/>
+                    <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'><abbr class='published' expr:title='data:post.timestampISO8601' itemprop='datePublished'><data:post.timestamp/></abbr></a>
+                  </b:if>
+                </b:if>
+              </span>
+
+              <span class='post-comment-link'>
+                <b:include cond='data:blog.pageType not in {&quot;item&quot;,&quot;static_page&quot;}                                  and data:post.allowComments' data='post' name='comment_count_picker'/>
+              </span>
+            </div>
+
+            <div class='post-footer-line post-footer-line-2'>
+              <b:if cond='data:top.showMobileShare'>
+                <div class='mobile-link-button goog-inline-block' id='mobile-share-button'>
+                  <a href='javascript:void(0);'><data:shareMsg/></a>
+                </div>
+              </b:if>
+            </div>
+
+          </div>
+        </div>
+
+        <b:include cond='data:blog.pageType in {&quot;static_page&quot;,&quot;item&quot;}' data='post' name='comment_picker'/>
+      </div>
+    </div>
+  </div>
+</b:includable>
+          <b:includable id='nextprev'>
+  <div class='blog-pager' id='blog-pager'>
+    <b:if cond='data:newerPageUrl'>
+      <span id='blog-pager-newer-link'>
+      <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'><data:newerPageTitle/></a>
+      </span>
+    </b:if>
+
+    <b:if cond='data:olderPageUrl'>
+      <span id='blog-pager-older-link'>
+      <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'><data:olderPageTitle/></a>
+      </span>
+    </b:if>
+
+    <a class='home-link' expr:href='data:blog.homepageUrl'><data:homeMsg/></a>
+
+    <b:if cond='data:mobileLinkUrl'>
+      <div class='blog-mobile-link'>
+        <a expr:href='data:mobileLinkUrl'><data:mobileLinkMsg/></a>
+      </div>
+    </b:if>
+
+  </div>
+  <div class='clear'/>
+</b:includable>
+          <b:includable id='post' var='post'>
+            <div class='post hentry uncustomized-post-template' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+              <b:if cond='data:post.firstImageUrl'>
+                <meta expr:content='data:post.firstImageUrl' itemprop='image_url'/>
+              </b:if>
+              <meta expr:content='data:blog.blogId' itemprop='blogId'/>
+              <meta expr:content='data:post.id' itemprop='postId'/>
+              <a expr:name='data:post.id'/>
+              <b:if cond='data:post.title'>
+                <h3 class='post-title entry-title' itemprop='name'>
+                  <b:if cond='data:post.link'>
+                    <a expr:href='data:post.link'><data:post.title/></a>
+                  <b:else/>
+                    <b:if cond='data:post.url'>
+                      <a expr:href='data:post.url'><data:post.title/></a>
+                    <b:else/>
+                      <data:post.title/>
+                    </b:if>
+                  </b:if>
+                </h3>
+              </b:if>
+              <div class='post-header'>
+                <div class='post-header-line-1'/>
+              </div>
+              <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' expr:itemprop='(data:blog.metaDescription ? &quot;&quot; : &quot;description &quot;) + &quot;articleBody&quot;'>
+                <data:post.body/>
+                <button class='tts-button' expr:onclick='&quot;NabdzApp.tts.speakPost(&apos;post-body-&quot; + data:post.id + &quot;&apos;)&quot;'>🔊 استمع للمقال</button>
+                <div style='clear: both;'/>
+              </div>
+              <div class='post-footer'>
+                <div class='post-footer-line post-footer-line-1'>
+                  <span class='post-author vcard'>
+                    <b:if cond='data:top.showAuthor'>
+                      <b:if cond='data:post.authorProfileUrl'>
+                        <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                          <meta expr:content='data:post.authorProfileUrl' itemprop='url'/>
+                          <a expr:href='data:post.authorProfileUrl' rel='author' title='author profile'>
+                            <span itemprop='name'><data:post.author/></span>
+                          </a>
+                        </span>
+                      <b:else/>
+                        <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                          <span itemprop='name'><data:post.author/></span>
+                        </span>
+                      </b:if>
+                    </b:if>
+                  </span>
+                  <span class='post-timestamp'>
+                    <b:if cond='data:top.showTimestamp'>
+                      <data:top.timestampLabel/>
+                      <b:if cond='data:post.url'>
+                        <meta expr:content='data:post.url.canonical' itemprop='url'/>
+                        <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'><abbr class='published' expr:title='data:post.timestampISO8601' itemprop='datePublished'><data:post.timestamp/></abbr></a>
+                      </b:if>
+                    </b:if>
+                  </span>
+                  <span class='post-comment-link'>
+                    <b:if cond='data:blog.pageType != &quot;static_page&quot;'>
+                      <b:if cond='data:post.allowComments'>
+                        <a class='comment-link' expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'>
+                          <b:if cond='data:post.numComments == 1'>1 <data:top.commentLabel/>
+                            <b:else/>
+                            <data:post.numComments/> <data:top.commentLabelPlural/>
+                          </b:if>
+                        </a>
+                      </b:if>
+                    </b:if>
+                  </span>
+                </div>
+                <div class='post-footer-line post-footer-line-2'>
+                  <b:if cond='data:top.showMobileShare'>
+                    <div class='mobile-link-button goog-inline-block' id='mobile-share-button'>
+                      <a href='javascript:void(0);'><data:shareMsg/></a>
+                    </div>
+                  </b:if>
+                  <b:if cond='data:top.showShareButtons'>
+                    <b:include data='post' name='shareButtons'/>
+                  </b:if>
+                </div>
+                <div class='post-footer-line post-footer-line-3'>
+                  <b:if cond='data:post.labels'>
+                    <data:postLabelsLabel/>
+                    <b:loop values='data:post.labels' var='label'>
+                      <a expr:href='data:label.url' rel='tag'><data:label.name/></a><b:if cond='not data:label.isLast'>,</b:if>
+                    </b:loop>
+                  </b:if>
+                </div>
+              </div>
+            </div>
+          </b:includable>
+          <b:includable id='postQuickEdit' var='post'>
+  <b:if cond='data:post.editUrl'>
+    <span expr:class='&quot;item-control &quot; + data:post.adminClass'>
+      <a expr:href='data:post.editUrl' expr:title='data:top.editPostMsg'>
+        <img alt='' class='icon-action' height='18' src='https://resources.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
+      </a>
+    </span>
+  </b:if>
+</b:includable>
+          <b:includable id='shareButtons' var='post'>
+  <b:if cond='data:top.showEmailButton'><a class='goog-inline-block share-button sb-email' expr:href='data:post.sharePostUrl + &quot;&amp;target=email&quot;' expr:title='data:top.emailThisMsg' target='_blank'><span class='share-button-link-text'><data:top.emailThisMsg/></span></a></b:if><b:if cond='data:top.showBlogThisButton'><a class='goog-inline-block share-button sb-blog' expr:href='data:post.sharePostUrl + &quot;&amp;target=blog&quot;' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=270,width=475\&quot;); return false;&quot;' expr:title='data:top.blogThisMsg' target='_blank'><span class='share-button-link-text'><data:top.blogThisMsg/></span></a></b:if><b:if cond='data:top.showTwitterButton'><a class='goog-inline-block share-button sb-twitter' expr:href='data:post.sharePostUrl + &quot;&amp;target=twitter&quot;' expr:title='data:top.shareToTwitterMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToTwitterMsg/></span></a></b:if><b:if cond='data:top.showFacebookButton'><a class='goog-inline-block share-button sb-facebook' expr:href='data:post.sharePostUrl + &quot;&amp;target=facebook&quot;' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' expr:title='data:top.shareToFacebookMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToFacebookMsg/></span></a></b:if><b:if cond='data:top.showPinterestButton'><a class='goog-inline-block share-button sb-pinterest' expr:href='data:post.sharePostUrl + &quot;&amp;target=pinterest&quot;' expr:title='data:top.shareToPinterestMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToPinterestMsg/></span></a></b:if>
+</b:includable>
+          <b:includable id='status-message'>
+  <b:if cond='data:navMessage'>
+  <div class='status-msg-wrap'>
+    <div class='status-msg-body'>
+      <data:navMessage/>
+    </div>
+    <div class='status-msg-border'>
+      <div class='status-msg-bg'>
+        <div class='status-msg-hidden'><data:navMessage/></div>
+      </div>
+    </div>
+  </div>
+  <div style='clear: both;'/>
+  </b:if>
+</b:includable>
+          <b:includable id='threaded-comment-form' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <b:if cond='data:mobile'>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+    <b:else/>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    </b:if>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+          <b:includable id='threaded_comment_js' var='post'>
+  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+
+  <script type='text/javascript'>
+    (function() {
+      var items = <data:post.commentJso/>;
+      var msgs = <data:post.commentMsgs/>;
+      var config = <data:post.commentConfig/>;
+
+// <![CDATA[
+      var cursor = null;
+      if (items && items.length > 0) {
+        cursor = parseInt(items[items.length - 1].timestamp) + 1;
+      }
+
+      var bodyFromEntry = function(entry) {
+        var text = (entry &&
+                    ((entry.content && entry.content.$t) ||
+                     (entry.summary && entry.summary.$t))) ||
+            '';
+        if (entry && entry.gd$extendedProperty) {
+          for (var k in entry.gd$extendedProperty) {
+            if (entry.gd$extendedProperty[k].name == 'blogger.contentRemoved') {
+              return '<span class="deleted-comment">' + text + '</span>';
+            }
+          }
+        }
+        return text;
+      }
+
+      var parse = function(data) {
+        cursor = null;
+        var comments = [];
+        if (data && data.feed && data.feed.entry) {
+          for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
+            var comment = {};
+            // comment ID, parsed out of the original id format
+            var id = /blog-(\d+).post-(\d+)/.exec(entry.id.$t);
+            comment.id = id ? id[2] : null;
+            comment.body = bodyFromEntry(entry);
+            comment.timestamp = Date.parse(entry.published.$t) + '';
+            if (entry.author && entry.author.constructor === Array) {
+              var auth = entry.author[0];
+              if (auth) {
+                comment.author = {
+                  name: (auth.name ? auth.name.$t : undefined),
+                  profileUrl: (auth.uri ? auth.uri.$t : undefined),
+                  avatarUrl: (auth.gd$image ? auth.gd$image.src : undefined)
+                };
+              }
+            }
+            if (entry.link) {
+              if (entry.link[2]) {
+                comment.link = comment.permalink = entry.link[2].href;
+              }
+              if (entry.link[3]) {
+                var pid = /.*comments\/default\/(\d+)\?.*/.exec(entry.link[3].href);
+                if (pid && pid[1]) {
+                  comment.parentId = pid[1];
+                }
+              }
+            }
+            comment.deleteclass = 'item-control blog-admin';
+            if (entry.gd$extendedProperty) {
+              for (var k in entry.gd$extendedProperty) {
+                if (entry.gd$extendedProperty[k].name == 'blogger.itemClass') {
+                  comment.deleteclass += ' ' + entry.gd$extendedProperty[k].value;
+                } else if (entry.gd$extendedProperty[k].name == 'blogger.displayTime') {
+                  comment.displayTime = entry.gd$extendedProperty[k].value;
+                }
+              }
+            }
+            comments.push(comment);
+          }
+        }
+        return comments;
+      };
+
+      var paginator = function(callback) {
+        if (hasMore()) {
+          var url = config.feed + '?alt=json&v=2&orderby=published&reverse=false&max-results=50';
+          if (cursor) {
+            url += '&published-min=' + new Date(cursor).toISOString();
+          }
+          window.bloggercomments = function(data) {
+            var parsed = parse(data);
+            cursor = parsed.length < 50 ? null
+                : parseInt(parsed[parsed.length - 1].timestamp) + 1
+            callback(parsed);
+            window.bloggercomments = null;
+          }
+          url += '&callback=bloggercomments';
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = url;
+          document.getElementsByTagName('head')[0].appendChild(script);
+        }
+      };
+      var hasMore = function() {
+        return !!cursor;
+      };
+      var getMeta = function(key, comment) {
+        if ('iswriter' == key) {
+          var matches = !!comment.author
+              && comment.author.name == config.authorName
+              && comment.author.profileUrl == config.authorUrl;
+          return matches ? 'true' : '';
+        } else if ('deletelink' == key) {
+          return config.baseUri + '/comment/delete/'
+               + config.blogId + '/' + comment.id;
+        } else if ('deleteclass' == key) {
+          return comment.deleteclass;
+        }
+        return '';
+      };
+
+      var replybox = null;
+      var replyUrlParts = null;
+      var replyParent = undefined;
+
+      var onReply = function(commentId, domId) {
+        if (replybox == null) {
+          // lazily cache replybox, and adjust to suit this style:
+          replybox = document.getElementById('comment-editor');
+          if (replybox != null) {
+            replybox.height = '250px';
+            replybox.style.display = 'block';
+            replyUrlParts = replybox.src.split('#');
+          }
+        }
+        if (replybox && (commentId !== replyParent)) {
+          replybox.src = '';
+          document.getElementById(domId).insertBefore(replybox, null);
+          replybox.src = replyUrlParts[0]
+              + (commentId ? '&parentID=' + commentId : '')
+              + '#' + replyUrlParts[1];
+          replyParent = commentId;
+        }
+      };
+
+      var hash = (window.location.hash || '#').substring(1);
+      var startThread, targetComment;
+      if (/^comment-form_/.test(hash)) {
+        startThread = hash.substring('comment-form_'.length);
+      } else if (/^c[0-9]+$/.test(hash)) {
+        targetComment = hash.substring(1);
+      }
+
+      // Configure commenting API:
+      var configJso = {
+        'maxDepth': config.maxThreadDepth
+      };
+      var provider = {
+        'id': config.postId,
+        'data': items,
+        'loadNext': paginator,
+        'hasMore': hasMore,
+        'getMeta': getMeta,
+        'onReply': onReply,
+        'rendered': true,
+        'initComment': targetComment,
+        'initReplyThread': startThread,
+        'config': configJso,
+        'messages': msgs
+      };
+
+      var render = function() {
+        if (window.goog && window.goog.comments) {
+          var holder = document.getElementById('comment-holder');
+          window.goog.comments.render(holder, provider);
+        }
+      };
+
+      // render now, or queue to render when library loads:
+      if (window.goog && window.goog.comments) {
+        render();
+      } else {
+        window.goog = window.goog || {};
+        window.goog.comments = window.goog.comments || {};
+        window.goog.comments.loadQueue = window.goog.comments.loadQueue || [];
+        window.goog.comments.loadQueue.push(render);
+      }
+    })();
+// ]]>
+  </script>
+</b:includable>
+          <b:includable id='threaded_comments' var='post'>
+  <div class='comments' id='comments'>
+    <a name='comments'/>
+    <h4><data:post.commentLabelFull/>:</h4>
+
+    <div class='comments-content'>
+      <b:include cond='data:post.embedCommentForm' data='post' name='threaded_comment_js'/>
+      <div id='comment-holder'>
+         <data:post.commentHtml/>
+      </div>
+    </div>
+
+    <p class='comment-footer'>
+      <b:if cond='data:post.allowNewComments'>
+        <b:include data='post' name='threaded-comment-form'/>
+      <b:else/>
+        <data:post.noNewCommentsText/>
+      </b:if>
+    </p>
+
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+
+    <div id='backlinks-container'>
+    <div expr:id='data:widget.instanceId + &quot;_backlinks-container&quot;'>
+    </div>
+    </div>
+  </div>
+</b:includable>
+        </b:widget>
+      </b:section>
+    </main>
+    <aside id='side'>
+      <b:section class='side-section' id='side1' name='الشريط الجانبي' showaddelement='yes'>
+        <b:widget id='HTML2' locked='false' title='محاكي المزاج' type='HTML' version='1'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<div style="text-align: center; font-family: var(--font);">
+              <button onclick="NabdzApp.mood.simulator('positive')" style="margin: 5px; padding: 10px; background: var(--accent); color: white; border: none; border-radius: var(--radius); cursor: pointer;">محاكاة مزاج إيجابي 😊</button>
+              <button onclick="NabdzApp.mood.simulator('negative')" style="margin: 5px; padding: 10px; background: var(--accent); color: white; border: none; border-radius: var(--radius); cursor: pointer;">محاكاة مزاج سلبي 😔</button>
+              <button onclick="NabdzApp.mood.simulator('neutral')" style="margin: 5px; padding: 10px; background: var(--accent); color: white; border: none; border-radius: var(--radius); cursor: pointer;">إعادة إلى الوضع المحايد 😐</button>
+            </div>]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+            <b:if cond='data:title != &quot;&quot;'><h2 class='title'><data:title/></h2></b:if>
+            <div class='widget-content'><data:content/></div>
+            <b:include name='quickedit'/>
+          </b:includable>
+        </b:widget>
+        <b:widget id='HTML1' locked='false' title='أرشيف نبض المشاعر' type='HTML' version='1'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<style>
+  .mood-archive-widget {
+    font-family: var(--font);
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden; /* مهم لإخفاء المحتوى عند الطي */
+    transition: all 0.3s ease-in-out;
+  }
+  .mood-archive-header {
+    padding: 15px;
+    background: var(--bg);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none; /* منع تحديد النص عند النقر */
+  }
+  .mood-archive-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--txt);
+  }
+  .mood-archive-header .toggle-icon {
+    font-size: 1.2rem;
+    color: var(--muted);
+    transition: transform 0.3s ease;
+  }
+  .mood-archive-widget.expanded .toggle-icon {
+    transform: rotate(180deg);
+  }
+  .mood-archive-content {
+    padding: 15px;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+    text-align: center;
+  }
+  .mood-archive-widget.expanded .mood-archive-content {
+    max-height: 300px; /* ارتفاع أقصى عند التوسع */
+    opacity: 1;
+    padding: 15px;
+  }
+  #moodChart {
+    max-width: 100%;
+    height: auto !important; /* جعل الرسم البياني متجاوبًا */
+  }
+</style>
+
+<div class="mood-archive-widget" id="mood-archive-widget">
+  <div class="mood-archive-header" onclick="toggleMoodArchive()">
+    <h3>أرشيف نبض المشاعر</h3>
+    <span class="toggle-icon">⌄</span>
+  </div>
+  <div class="mood-archive-content">
+    <canvas id="moodChart" width="400" height="200"></canvas>
+    <button class="export-mood-btn" onclick="NabdzApp.mood.exportPDF()" style="margin-top: 10px;">تصدير كـ PDF</button>
+  </div>
+</div>
+
+<script>
+  function toggleMoodArchive() {
+    const widget = document.getElementById('mood-archive-widget');
+    widget.classList.toggle('expanded');
+  }
+</script>]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+            <b:if cond='data:title != &quot;&quot;'><h2 class='title'><data:title/></h2></b:if>
+            <div class='widget-content'><data:content/></div>
+            <b:include name='quickedit'/>
+          </b:includable>
+        </b:widget>
+        <b:widget id='HTML3' locked='false' title='لوحة نبضك' type='HTML' version='1'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<div id='visitor-dashboard'>
+                <p>مزاجك اليوم: <span id='user-mood'>محايد</span></p>
+                <p>عدد زياراتك: <span id='visit-count'>1</span></p>
+                <button onclick='NabdzApp.resetProfile()'>إعادة تعيين ملفي</button>
+              </div>]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+            <b:if cond='data:title != &quot;&quot;'><h2><data:title/></h2></b:if>
+            <div class='widget-content'><data:content/></div>
+            <b:include name='quickedit'/>
+          </b:includable>
+        </b:widget>
+        <b:widget id='PopularPosts1' locked='false' title='الأكثر قراءة' type='PopularPosts'>
+          <b:widget-settings>
+            <b:widget-setting name='numItemsToShow'>3</b:widget-setting>
+            <b:widget-setting name='showThumbnails'>true</b:widget-setting>
+            <b:widget-setting name='showSnippets'>true</b:widget-setting>
+            <b:widget-setting name='timeRange'>LAST_YEAR</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+  <b:if cond='data:title != &quot;&quot;'><h2><data:title/></h2></b:if>
+  <div class='widget-content popular-posts'>
+    <ul>
+      <b:loop values='data:posts' var='post'>
+      <li>
+        <b:if cond='!data:showThumbnails'>
+          <b:if cond='!data:showSnippets'>
+            <!-- (1) No snippet/thumbnail -->
+            <a expr:href='data:post.href'><data:post.title/></a>
+          <b:else/>
+            <!-- (2) Show only snippets -->
+            <div class='item-title'><a expr:href='data:post.href'><data:post.title/></a></div>
+            <div class='item-snippet'><data:post.snippet/></div>
+          </b:if>
+        <b:else/>
+          <!-- (3) Show only thumbnails or (4) Snippets and thumbnails. -->
+          <div expr:class='data:showSnippets ? &quot;item-content&quot; : &quot;item-thumbnail-only&quot;'>
+            <b:if cond='data:post.featuredImage.isResizable or data:post.thumbnail'>
+              <div class='item-thumbnail'>
+                <a expr:href='data:post.href' target='_blank'>
+                  <b:with value='data:post.featuredImage.isResizable                                  ? resizeImage(data:post.featuredImage, 72, &quot;1:1&quot;)                                  : data:post.thumbnail' var='image'>
+                    <img alt='' border='0' expr:src='data:image'/>
+                  </b:with>
+                </a>
+              </div>
+            </b:if>
+            <div class='item-title'><a expr:href='data:post.href'><data:post.title/></a></div>
+            <b:if cond='data:showSnippets'>
+              <div class='item-snippet'><data:post.snippet/></div>
+            </b:if>
+          </div>
+          <div style='clear: both;'/>
+        </b:if>
+      </li>
+      </b:loop>
+    </ul>
+    <b:include name='quickedit'/>
+  </div>
+</b:includable>
+        </b:widget>
+        <b:widget id='Label1' locked='false' title='التصنيفات' type='Label'>
+          <b:widget-settings>
+            <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+            <b:widget-setting name='display'>LIST</b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'/>
+            <b:widget-setting name='showType'>ALL</b:widget-setting>
+            <b:widget-setting name='showFreqNumbers'>false</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+  <b:if cond='data:title != &quot;&quot;'>
+    <h2><data:title/></h2>
+  </b:if>
+  <div expr:class='&quot;widget-content &quot; + data:display + &quot;-label-widget-content&quot;'>
+    <b:if cond='data:display == &quot;list&quot;'>
+      <ul>
+        <b:loop values='data:labels' var='label'>
+          <li>
+            <b:if cond='data:blog.url == data:label.url'>
+              <span expr:dir='data:blog.languageDirection'><data:label.name/></span>
+            <b:else/>
+              <a expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/></a>
+            </b:if>
+            <b:if cond='data:showFreqNumbers'>
+              <span dir='ltr'>(<data:label.count/>)</span>
+            </b:if>
+          </li>
+        </b:loop>
+      </ul>
+    <b:else/>
+      <b:loop values='data:labels' var='label'>
+        <span expr:class='&quot;label-size label-size-&quot; + data:label.cssSize'>
+          <b:if cond='data:blog.url == data:label.url'>
+            <span expr:dir='data:blog.languageDirection'><data:label.name/></span>
+          <b:else/>
+            <a expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/></a>
+          </b:if>
+          <b:if cond='data:showFreqNumbers'>
+            <span class='label-count' dir='ltr'>(<data:label.count/>)</span>
+          </b:if>
+        </span>
+      </b:loop>
+    </b:if>
+    <b:include name='quickedit'/>
+  </div>
+</b:includable>
+        </b:widget>
+      </b:section>
+    </aside>
+  </div>
+  <footer>&#169; <data:blog.title/> <span id='year'/> - جميع الحقوق محفوظة</footer>
+  <script>
+  //<![CDATA[
+  /**
+   * =============================================
+   * Nabdz App - Main Application Logic (Enhanced with 4 New Features)
+   * =============================================
+   */
+  const NabdzApp = {
+    config: {
+      themeKey: 'nabdz-theme',
+      moodHistoryKey: 'nabdzMoodHistory',
+      visitCountKey: 'nabdzVisitCount',
+      chartDays: 7,
+    },
+    state: {
+      currentMood: 'neutral',
+      soulAnimationId: null,
+    },
+    // --- Identity Generator ---
+    identity: {
+      open() { document.getElementById('identity-modal').style.display = 'flex'; },
+      close() { document.getElementById('identity-modal').style.display = 'none'; },
+      generate() {
+        const name = document.getElementById('identity-name').value.trim();
+        const wilaya = document.getElementById('identity-wilaya').value;
+        if (!name || !wilaya) { alert('يرجى ملء جميع الحقول'); return; }
+        const preview = document.getElementById('identity-preview');
+        preview.innerHTML = `
+          <div style="font-size:24px; color:var(--primary); font-weight:bold;">${name}</div>
+          <div style="font-size:18px; color:var(--accent); margin-top:8px;">ولاية ${wilaya}</div>
+          <div style="margin-top:10px; font-size:14px; color:#666;">جزائري بالروح، حرّ بالفكر 💜</div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg" style="width:60px; margin-top:10px;">
+        `;
+      },
+      download() {
+        if (!window.html2canvas) {
+          const s = document.createElement('script');
+          s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+          s.onload = () => this.capture();
+          document.head.appendChild(s);
+        } else {
+          this.capture();
+        }
+      },
+      capture() {
+        html2canvas(document.getElementById('identity-preview')).then(canvas => {
+          const link = document.createElement('a');
+          link.download = 'هويتي-الجزائرية.png';
+          link.href = canvas.toDataURL();
+          link.click();
+        });
+      }
+    },
+    // --- Text-to-Speech ---
+    tts: {
+      speakPost(id) {
+        if (!('speechSynthesis' in window)) {
+          alert('متصفحك لا يدعم قراءة النصوص صوتيًّا.');
+          return;
+        }
+        const el = document.getElementById(id);
+        if (!el) return;
+        const text = el.innerText;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ar-SA';
+        utterance.rate = 0.9;
+        speechSynthesis.speak(utterance);
+      }
+    },
+    // --- Mood Export to PDF ---
+    mood: {
+      // ... (نفس الكود الأصلي مع إضافة exportPDF)
+      exportPDF() {
+        if (!window.jsPDF || !window.html2canvas) {
+          const s1 = document.createElement('script');
+          s1.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+          const s2 = document.createElement('script');
+          s2.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+          s2.onload = () => this.doExport();
+          s1.onload = () => document.head.appendChild(s2);
+          document.head.appendChild(s1);
+        } else {
+          this.doExport();
+        }
+      },
+      doExport() {
+        const { jsPDF } = window.jspdf;
+        html2canvas(document.querySelector('#HTML1 .widget-content')).then(canvas => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const imgWidth = 190;
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+          pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+          pdf.save('أرشيف-مشاعري-نبض-الجزائر.pdf');
+        });
+      },
+      // ... (باقي الدوال: init, applyDynamicContent, scrollDetector, helpPopup, simulator, chart)
+      positiveWords: ['ممتاز', 'رائع', 'جميل', 'أمل', 'سعادة', 'فرح', 'حب', 'نجاح', 'تقدم', 'إيجابي', 'خير', 'بركة', 'موفق', 'قوي', 'محبوب', 'مبهر', 'لذيذ', 'روعة', 'أفضل', 'مدهش'],
+      negativeWords: ['سيء', 'حزن', 'غضب', 'فشل', 'خوف', 'قلق', 'مشكلة', 'صعب', 'سلبي', 'مؤلم', 'بائس', 'كارثة', 'فظيع', 'مخيف', 'مرعب', 'حزين', 'غاضب', 'بائس', 'تعيس', 'محبط'],
+      init() {
+        this.loadVisitCount();
+        this.scrollDetector.init();
+        this.helpPopup.init();
+        this.updateUserMoodDisplay();
+        if (document.getElementById('moodChart')) {
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+          script.onload = () => this.chart.init();
+          document.head.appendChild(script);
+        }
+      },
+      loadVisitCount() {
+        let count = parseInt(localStorage.getItem(NabdzApp.config.visitCountKey)) || 0;
+        count++;
+        localStorage.setItem(NabdzApp.config.visitCountKey, count.toString());
+        document.getElementById('visit-count').textContent = count;
+      },
+      updateUserMoodDisplay() {
+        const el = document.getElementById('user-mood');
+        if (el) {
+          const display = { positive: 'إيجابي 😊', negative: 'سلبي 😔', neutral: 'محايد 😐' };
+          el.textContent = display[NabdzApp.state.currentMood];
+        }
+      },
+      applyDynamicContent() {
+        const body = document.body;
+        const messageEl = document.getElementById('dynamic-header-message');
+        body.className = body.className.replace(/mood-\w+/g, '');
+        let moodClass = 'mood-neutral', message = 'نبض الجزائر اليوم متوازن. 🤍';
+        if (NabdzApp.state.currentMood === 'positive') { moodClass = 'mood-positive'; message = 'أجواء إيجابية اليوم! ☀️'; }
+        else if (NabdzApp.state.currentMood === 'negative') { moodClass = 'mood-negative'; message = 'نحن هنا من أجلك. 💜'; }
+        body.classList.add(moodClass);
+        if (messageEl) messageEl.textContent = message;
+        this.updateUserMoodDisplay();
+        // تفعيل وضع الهدوء عند المزاج السلبي
+        if (NabdzApp.state.currentMood === 'negative') {
+          document.body.classList.add('calm-mode');
+        } else {
+          document.body.classList.remove('calm-mode');
+        }
+      },
+      saveDailyMood() {
+        const today = new Date().toLocaleDateString();
+        const moodScore = NabdzApp.state.currentMood === 'positive' ? 2 : NabdzApp.state.currentMood === 'negative' ? -2 : 0;
+        try {
+          let history = JSON.parse(localStorage.getItem(NabdzApp.config.moodHistoryKey)) || {};
+          history[today] = moodScore;
+          localStorage.setItem(NabdzApp.config.moodHistoryKey, JSON.stringify(history));
+        } catch (e) {
+          console.error("Failed to save mood:", e);
+        }
+      },
+      scrollDetector: {
+        data: { fast: 0, slow: 0, back: 0, rage: 0 },
+        lastY: 0, lastT: Date.now(),
+        init() {
+          document.addEventListener('scroll', this.onScroll.bind(this));
+          setInterval(this.checkMood.bind(this), 5000);
+        },
+        onScroll() {
+          const t = Date.now(); const dy = Math.abs(window.scrollY - this.lastY); const dt = t - this.lastT;
+          const v = dy / (dt || 1);
+          if (v > 1.5) this.data.fast++; else this.data.slow++;
+          if (window.scrollY < this.lastY - 50) this.data.back++;
+          if (dt < 80 && dy > 20) this.data.rage++;
+          this.lastY = window.scrollY; this.lastT = t;
+        },
+        checkMood() {
+          const total = this.data.fast + this.data.slow + this.data.back + this.data.rage + 1;
+          const stress = (this.data.fast + this.data.rage) / total;
+          let newMood = 'neutral';
+          if (stress > 0.6) newMood = 'negative';
+          else if (stress < 0.25) newMood = 'positive';
+          if (NabdzApp.state.currentMood !== newMood) {
+            NabdzApp.state.currentMood = newMood;
+            NabdzApp.mood.applyDynamicContent();
+            if (newMood === 'negative') {
+              NabdzApp.mood.helpPopup.show();
+            }
+          }
+          this.data = { fast: 0, slow: 0, back: 0, rage: 0 };
+        }
+      },
+      helpPopup: {
+        init() {},
+        show() { document.getElementById('moodHelp').style.display = 'block'; },
+        close() { document.getElementById('moodHelp').style.display = 'none'; },
+        send() {
+          const msgEl = document.getElementById('moodMsg');
+          const msg = msgEl.value.trim();
+          if (!msg) { alert('الرجاء كتابة رسالة'); return; }
+          const popup = document.getElementById('moodHelp');
+          popup.innerHTML = '<b>شكراً لك!</b><p>ملاحظاتك تساعدنا على التحسن. سنحاول توفير تجربة أفضل لك.</p>';
+          setTimeout(() => { this.close(); location.reload(); }, 3000);
+        }
+      },
+      simulator(mood) {
+        NabdzApp.state.currentMood = mood;
+        NabdzApp.mood.applyDynamicContent();
+        NabdzApp.mood.saveDailyMood();
+        NabdzApp.mood.chart.render();
+      },
+      chart: {
+        instance: null,
+        init() { this.render(); },
+        render() {
+          const ctx = document.getElementById('moodChart');
+          if (!ctx) return;
+          if (this.instance) { this.instance.destroy(); }
+          try {
+            const history = JSON.parse(localStorage.getItem(NabdzApp.config.moodHistoryKey)) || {};
+            const labels = Object.keys(history).slice(-NabdzApp.config.chartDays);
+            const data = Object.values(history).slice(-NabdzApp.config.chartDays);
+            if (labels.length === 0) {
+              const chartCtx = ctx.getContext('2d');
+              chartCtx.font = '16px Tajawal';
+              chartCtx.fillStyle = '#666';
+              chartCtx.textAlign = 'center';
+              chartCtx.fillText('لا توجد بيانات كافية', ctx.width / 2, ctx.height / 2);
+              return;
+            }
+            this.instance = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: labels,
+                datasets: [{
+                  label: 'مزاج نبض الجزائر',
+                  data: data,
+                  borderColor: 'rgba(210, 16, 52, 1)',
+                  backgroundColor: 'rgba(210, 16, 52, 0.2)',
+                  tension: 0.4,
+                  fill: true
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                  y: {
+                    ticks: { callback: v => v > 0 ? '😊' : v < 0 ? '😔' : '😐' }
+                  }
+                },
+                plugins: {
+                  legend: { labels: { font: { family: 'Tajawal' } } }
+                }
+              }
+            });
+          } catch (error) {
+            console.error("Error rendering mood chart:", error);
+          }
+        }
+      }
+    },
+    // --- Theme, UI, Chatbot, Soul, Reset (كما في الأصل مع تعديل بسيط لدعم calm-mode) ---
+    theme: {
+      init() {
+        const toggle = document.getElementById('themeToggle');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem(NabdzApp.config.themeKey);
+        let isDark;
+        if (storedTheme === 'light' || storedTheme === 'dark') {
+          isDark = storedTheme === 'dark';
+        } else {
+          isDark = prefersDark;
+        }
+        this.apply(isDark);
+        if (storedTheme !== 'light' && storedTheme !== 'dark') {
+          toggle.style.display = 'none';
+        }
+        toggle?.addEventListener('click', () => {
+          toggle.style.display = 'block';
+          this.toggle();
+        });
+      },
+      toggle() {
+        const isDark = document.documentElement.classList.toggle('dark');
+        this.apply(isDark);
+        localStorage.setItem(NabdzApp.config.themeKey, isDark ? 'dark' : 'light');
+      },
+      apply(isDark) {
+        const root = document.documentElement;
+        if (isDark) {
+          root.style.setProperty('--bg', '#121212');
+          root.style.setProperty('--card', '#1e1e1e');
+          root.style.setProperty('--txt', '#e0e0e0');
+          root.style.setProperty('--muted', '#aaa');
+        } else {
+          root.style.setProperty('--bg', '#f5f5f5');
+          root.style.setProperty('--card', '#ffffff');
+          root.style.setProperty('--txt', '#222222');
+          root.style.setProperty('--muted', '#666666');
+        }
+      }
+    },
+    ui: {
+      init() {
+        document.getElementById('year').textContent = new Date().getFullYear();
+        const backToTopButton = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+          backToTopButton?.classList.toggle('show', window.scrollY > 300);
+        });
+        backToTopButton?.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    },
+    chatbot: {
+      elements: {},
+      state: { userName: null },
+      init() {
+        this.elements = {
+          bubble: document.getElementById('chatBubble'),
+          window: document.getElementById('chatWindow'),
+          body: document.getElementById('chatBody'),
+          input: document.getElementById('chatInput'),
+          sendBtn: document.getElementById('chatSendBtn'),
+          typingIndicator: document.getElementById('typingIndicator')
+        };
+        this.state.userName = sessionStorage.getItem('nabdzUserName') || null;
+        this.elements.bubble?.addEventListener('click', () => this.toggle());
+        this.elements.sendBtn?.addEventListener('click', () => this.sendMessage());
+        this.elements.input?.addEventListener('keypress', (e) => { if (e.key === 'Enter') this.sendMessage(); });
+      },
+      toggle() {
+        this.elements.window?.classList.toggle('open');
+        if (!this.state.userName && this.elements.window?.classList.contains('open')) {
+          setTimeout(() => this.addMessage("بما أننا نتحدث لأول مرة، هل لي أن أعرف اسمك؟", 'bot'), 1000);
+        }
+      },
+      sendMessage() {
+        const message = this.elements.input?.value.trim();
+        if (!message) return;
+        this.addMessage(message, 'user');
+        if(this.elements.input) this.elements.input.value = '';
+        this.showTypingIndicator();
+        setTimeout(() => {
+          this.hideTypingIndicator();
+          const response = this.generateResponse(message);
+          this.addMessage(response, 'bot');
+        }, 1000 + Math.random() * 1000);
+      },
+      addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('chat-message', sender);
+        messageDiv.textContent = text;
+        this.elements.body?.appendChild(messageDiv);
+        if(this.elements.body) this.elements.body.scrollTop = this.elements.body.scrollHeight;
+      },
+      showTypingIndicator() { if(this.elements.typingIndicator) this.elements.typingIndicator.style.display = 'flex'; },
+      hideTypingIndicator() { if(this.elements.typingIndicator) this.elements.typingIndicator.style.display = 'none'; },
+      generateResponse(input) {
+        const lowerInput = input.toLowerCase();
+        if (!this.state.userName && (lowerInput.includes('اسمي') || lowerInput.includes('أنا'))) {
+          const name = input.split(' ').pop();
+          this.state.userName = name;
+          sessionStorage.setItem('nabdzUserName', this.state.userName);
+          return `سعيد بلقائك يا ${this.state.userName}! الآن، كيف يمكنني مساعدتك؟`;
+        }
+        if (lowerInput.includes('مولد الهوية') || lowerInput.includes('هويتي')) {
+          NabdzApp.identity.open();
+          return "بالتأكيد! يمكنك الآن إنشاء هويتك الجزائرية الخاصة.";
+        }
+        if (lowerInput.includes('كيف حالك')) {
+          if (NabdzApp.state.currentMood === 'negative') return "أشعر ببعض القلق lately، يبدو أن نبض الجزائر متوتر. أتمنى أن يتحسن الوضع قريباً.";
+          if (NabdzApp.state.currentMood === 'positive') return "أنا بخير والحمد لله! أرى تفاؤلاً في الأفق، وهذا يسرني جداً!";
+          return "أنا في حالة تأمل دائم، أحلل البيانات وأراقب نبض البلاد. شكراً لسؤالك.";
+        }
+        if (lowerInput.includes('شكرا')) {
+          const moodResponses = {
+            negative: "لا شكر على واجب، أتمنى أن أكون قد ساعدت في تحسين مزاجك.",
+            positive: "العفو! يسعدني أن أراك بخير!",
+            neutral: "على الرحب والسعة، متى احتجت أي شيء، أنا هنا."
+          };
+          return moodResponses[NabdzApp.state.currentMood];
+        }
+        return "هذا سؤال مثير للاهتمام. أنا لا أزال أتعلم، لكن يمكنني مساعدتك في معرفة مزاج الجزائر أو محاكاة المشاعر. هل هناك شيء آخر؟";
+      }
+    },
+    soul: {
+      canvas: null, ctx: null, pulse: 0,
+      init() {
+        this.canvas = document.getElementById('digital-soul-canvas');
+        if (!this.canvas) return;
+        this.ctx = this.canvas.getContext('2d');
+        this.canvas.width = this.canvas.offsetWidth;
+        this.canvas.height = this.canvas.offsetHeight;
+        this.animate();
+      },
+      animate() {
+        if (!this.ctx) return;
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        const centerX = this.canvas.width / 2;
+        const centerY = this.canvas.height / 2;
+        const baseRadius = Math.min(centerX, centerY) * 0.7;
+        const moodScore = NabdzApp.state.currentMood === 'positive' ? 2 : NabdzApp.state.currentMood === 'negative' ? -2 : 0;
+        const countEl = document.getElementById('visit-count');
+        const visitors = countEl ? parseInt(countEl.textContent) : 1;
+        const dynamicRadius = baseRadius + (visitors / 10) + Math.sin(this.pulse) * 5;
+        const hue = 120 + (moodScore * 60);
+        const glowGradient = this.ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, dynamicRadius * 1.5);
+        glowGradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.3)`);
+        glowGradient.addColorStop(1, 'transparent');
+        this.ctx.fillStyle = glowGradient;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        const gradient = this.ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, dynamicRadius);
+        gradient.addColorStop(0, `hsla(${hue}, 100%, 60%, 0.8)`);
+        gradient.addColorStop(0.7, `hsla(${hue}, 100%, 50%, 0.5)`);
+        gradient.addColorStop(1, `hsla(${hue}, 100%, 40%, 0.2)`);
+        this.ctx.beginPath();
+        this.ctx.arc(centerX, centerY, dynamicRadius, 0, Math.PI * 2);
+        this.ctx.fillStyle = gradient;
+        this.ctx.fill();
+        this.pulse += 0.05;
+        NabdzApp.state.soulAnimationId = requestAnimationFrame(() => this.animate());
+      }
+    },
+    resetProfile() {
+      if (confirm('هل أنت متأكد من إعادة تعيين ملفك الشخصي؟')) {
+        localStorage.removeItem(NabdzApp.config.visitCountKey);
+        localStorage.removeItem(NabdzApp.config.moodHistoryKey);
+        sessionStorage.removeItem('nabdzUserName');
+        alert('تمت إعادة التعيين بنجاح!');
+        location.reload();
+      }
+    },
+    init() {
+      console.log('Nabdz App Initializing...');
+      this.theme.init();
+      this.ui.init();
+      this.mood.init();
+      this.chatbot.init();
+      this.soul.init();
+      console.log('Nabdz App Initialized.');
+    }
+  };
+  window.addEventListener('DOMContentLoaded', () => {
+    NabdzApp.init();
+  });
+  //]]>
+ </script>   
+<script>
+//<![CDATA[
+/**
+ * =============================================
+ * Nabdz App - Main Application Logic (Final Clean Version)
+ * =============================================
+ */
+const NabdzApp = {
+  config: {
+    themeKey: 'nabdz-theme',
+    moodHistoryKey: 'nabdzMoodHistory',
+    visitCountKey: 'nabdzVisitCount',
+    chartDays: 7,
+  },
+  state: {
+    currentMood: 'neutral',
+    soulAnimationId: null,
+  },
+  // --- Energy Module (مدمج بالكامل) ---
+  energy: {
+    setLevel: function(points) {
+      if (points >= 700) return 'طاقة محركة';
+      if (points >= 300) return 'موجة';
+      if (points >= 100) return 'تدفق';
+      return 'شرارة جديدة';
+    },
+    addPoints: function(amount) {
+      try {
+        let sparkData = localStorage.getItem('nabdzSpark');
+        if (!sparkData) return;
+        let data = JSON.parse(sparkData);
+        data.points += amount;
+        data.energyLevel = NabdzApp.energy.setLevel(data.points);
+        localStorage.setItem('nabdzSpark', JSON.stringify(data));
+        NabdzApp.energy.updateSparkCard(data);
+        console.log(`Nabdz: Added ${amount} points. Total: ${data.points}`);
+      } catch (e) {
+        console.error('Nabdz: Error adding points.', e);
+      }
+    },
+    createSpark: function(name, wilaya) {
+      try {
+        const initialData = { name: name, wilaya: wilaya, points: 20, energyLevel: 'شرارة جديدة', achievements: [] };
+        localStorage.setItem('nabdzSpark', JSON.stringify(initialData));
+        NabdzApp.energy.updateSparkCard(initialData);
+        console.log('Nabdz: Spark created!', initialData);
+      } catch (e) {
+        console.error('Nabdz: Error creating spark.', e);
+      }
+    },
+    updateSparkCard: function(data) {
+      const card = document.querySelector('.spark-card');
+      if (!card) return;
+      card.querySelector('.spark-avatar').textContent = data.name.charAt(0).toUpperCase();
+      card.querySelector('.spark-name').textContent = data.name;
+      card.querySelector('.spark-wilaya').innerHTML = `📍 ولاية ${data.wilaya}`;
+      const levelInfo = { 'شرارة جديدة': { icon: '🌠' }, 'تدفق': { icon: '💧' }, 'موجة': { icon: '🌊' }, 'طاقة محركة': { icon: '⚡' } };
+      const currentLevel = levelInfo[data.energyLevel] || levelInfo['شرارة جديدة'];
+      card.querySelector('.spark-level-icon').textContent = currentLevel.icon;
+      card.querySelector('.spark-level-name span:last-child').textContent = data.energyLevel;
+      const nextLevelThresholds = { 'شرارة جديدة': 100, 'تدفق': 300, 'موجة': 700 };
+      const currentThreshold = nextLevelThresholds[data.energyLevel] || 0;
+      const nextThreshold = Object.values(nextLevelThresholds).find(th => th > data.points) || 1000;
+      const progress = ((data.points - currentThreshold) / (nextThreshold - currentThreshold)) * 100;
+      card.querySelector('.spark-progress-bar').style.width = `${Math.min(progress, 100)}%`;
+    },
+    init: function() {
+      try {
+        const sparkData = localStorage.getItem('nabdzSpark');
+        if (sparkData) {
+          const data = JSON.parse(sparkData);
+          NabdzApp.energy.updateSparkCard(data);
+        }
+      } catch (e) {
+        console.error('Nabdz: Error reading spark data.', e);
+      }
+    }
+  },
+  // --- Identity Generator ---
+  identity: {
+    open() { document.getElementById('identity-modal').style.display = 'flex'; },
+    close() { document.getElementById('identity-modal').style.display = 'none'; },
+    generate() {
+      const name = document.getElementById('identity-name').value.trim();
+      const wilaya = document.getElementById('identity-wilaya').value;
+      if (!name || !wilaya) { alert('يرجى ملء جميع الحقول'); return; }
+      NabdzApp.energy.createSpark(name, wilaya);
+      const preview = document.getElementById('identity-preview');
+      preview.innerHTML = `<div style="font-size:24px; color:var(--primary); font-weight:bold;">${name}</div><div style="font-size:18px; color:var(--accent); margin-top:8px;">ولاية ${wilaya}</div><div style="margin-top:10px; font-size:14px; color:#666;">جزائري بالروح، حرّ بالفكر 💜</div><img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg" style="width:60px; margin-top:10px;">`;
+    },
+    download() {
+      if (!window.html2canvas) {
+        const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'; s.onload = () => this.capture(); document.head.appendChild(s);
+      } else { this.capture(); }
+    },
+    capture() {
+      html2canvas(document.getElementById('identity-preview')).then(canvas => {
+        const link = document.createElement('a'); link.download = 'هويتي-الجزائرية.png'; link.href = canvas.toDataURL(); link.click();
+      });
+    }
+  },
+  // --- Text-to-Speech ---
+  tts: { speakPost(id) { if (!('speechSynthesis' in window)) { alert('متصفحك لا يدعم قراءة النصوص صوتيًّا.'); return; } const el = document.getElementById(id); if (!el) return; const text = el.innerText; const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'ar-SA'; utterance.rate = 0.9; speechSynthesis.speak(utterance); } },
+  // --- Mood Export to PDF ---
+  mood: {
+    exportPDF() {
+      if (!window.jsPDF || !window.html2canvas) {
+        const s1 = document.createElement('script'); s1.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        const s2 = document.createElement('script'); s2.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+        s2.onload = () => this.doExport(); s1.onload = () => document.head.appendChild(s2); document.head.appendChild(s1);
+      } else { this.doExport(); }
+    },
+    doExport() {
+      const { jsPDF } = window.jspdf;
+      html2canvas(document.querySelector('#HTML1 .widget-content')).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgWidth = 190; const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+        pdf.save('أرشيف-مشاعري-نبض-الجزائر.pdf');
+      });
+    },
+    positiveWords: ['ممتاز', 'رائع', 'جميل', 'أمل', 'سعادة', 'فرح', 'حب', 'نجاح', 'تقدم', 'إيجابي', 'خير', 'بركة', 'موفق', 'قوي', 'محبوب', 'مبهر', 'لذيذ', 'روعة', 'أفضل', 'مدهش'],
+    negativeWords: ['سيء', 'حزن', 'غضب', 'فشل', 'خوف', 'قلق', 'مشكلة', 'صعب', 'سلبي', 'مؤلم', 'بائس', 'كارثة', 'فظيع', 'مخيف', 'مرعب', 'حزين', 'غاضب', 'بائس', 'تعيس', 'محبط'],
+    init() {
+      this.loadVisitCount(); this.scrollDetector.init(); this.helpPopup.init(); this.updateUserMoodDisplay();
+      if (document.getElementById('moodChart')) { const script = document.createElement('script'); script.src = 'https://cdn.jsdelivr.net/npm/chart.js'; script.onload = () => this.chart.init(); document.head.appendChild(script); }
+    },
+    loadVisitCount() { let count = parseInt(localStorage.getItem(NabdzApp.config.visitCountKey)) || 0; count++; localStorage.setItem(NabdzApp.config.visitCountKey, count.toString()); const el = document.getElementById('visit-count'); if(el) el.textContent = count; },
+    updateUserMoodDisplay() { const el = document.getElementById('user-mood'); if (el) { const display = { positive: 'إيجابي 😊', negative: 'سلبي 😔', neutral: 'محايد 😐' }; el.textContent = display[NabdzApp.state.currentMood]; } },
+    applyDynamicContent() { const body = document.body; const messageEl = document.getElementById('dynamic-header-message'); body.className = body.className.replace(/mood-\w+/g, ''); let moodClass = 'mood-neutral', message = 'نبض الجزائر اليوم متوازن. 🤍'; if (NabdzApp.state.currentMood === 'positive') { moodClass = 'mood-positive'; message = 'أجواء إيجابية اليوم! ☀️'; } else if (NabdzApp.state.currentMood === 'negative') { moodClass = 'mood-negative'; message = 'نحن هنا من أجلك. 💜'; } body.classList.add(moodClass); if (messageEl) messageEl.textContent = message; this.updateUserMoodDisplay(); if (NabdzApp.state.currentMood === 'negative') { document.body.classList.add('calm-mode'); } else { document.body.classList.remove('calm-mode'); } },
+    saveDailyMood() { const today = new Date().toLocaleDateString(); const moodScore = NabdzApp.state.currentMood === 'positive' ? 2 : NabdzApp.state.currentMood === 'negative' ? -2 : 0; try { let history = JSON.parse(localStorage.getItem(NabdzApp.config.moodHistoryKey)) || {}; history[today] = moodScore; localStorage.setItem(NabdzApp.config.moodHistoryKey, JSON.stringify(history)); } catch (e) { console.error("Failed to save mood:", e); } },
+    scrollDetector: { data: { fast: 0, slow: 0, back: 0, rage: 0 }, lastY: 0, lastT: Date.now(), init() { document.addEventListener('scroll', this.onScroll.bind(this)); setInterval(this.checkMood.bind(this), 5000); }, onScroll() { const t = Date.now(); const dy = Math.abs(window.scrollY - this.lastY); const dt = t - this.lastT; const v = dy / (dt || 1); if (v > 1.5) this.data.fast++; else this.data.slow++; if (window.scrollY < this.lastY - 50) this.data.back++; if (dt < 80 && dy > 20) this.data.rage++; this.lastY = window.scrollY; this.lastT = t; }, checkMood() { const total = this.data.fast + this.data.slow + this.data.back + this.data.rage + 1; const stress = (this.data.fast + this.data.rage) / total; let newMood = 'neutral'; if (stress > 0.6) newMood = 'negative'; else if (stress < 0.25) newMood = 'positive'; if (NabdzApp.state.currentMood !== newMood) { NabdzApp.state.currentMood = newMood; NabdzApp.mood.applyDynamicContent(); if (newMood === 'negative') { NabdzApp.mood.helpPopup.show(); } } this.data = { fast: 0, slow: 0, back: 0, rage: 0 }; } },
+    helpPopup: { init() {}, show() { const popup = document.getElementById('moodHelp'); if(popup) popup.style.display = 'block'; }, close() { const popup = document.getElementById('moodHelp'); if(popup) popup.style.display = 'none'; }, send() { const msgEl = document.getElementById('moodMsg'); const msg = msgEl.value.trim(); if (!msg) { alert('الرجاء كتابة رسالة'); return; } const popup = document.getElementById('moodHelp'); if(popup) { popup.innerHTML = '<b>شكراً لك!</b><p>ملاحظاتك تساعدنا على التحسن. سنحاول توفير تجربة أفضل لك.</p>'; setTimeout(() => { this.close(); location.reload(); }, 3000); } } },
+    simulator(mood) { NabdzApp.state.currentMood = mood; NabdzApp.mood.applyDynamicContent(); NabdzApp.mood.saveDailyMood(); NabdzApp.mood.chart.render(); },
+    chart: { instance: null, init() { this.render(); }, render() { const ctx = document.getElementById('moodChart'); if (!ctx) return; if (this.instance) { this.instance.destroy(); } try { const history = JSON.parse(localStorage.getItem(NabdzApp.config.moodHistoryKey)) || {}; const labels = Object.keys(history).slice(-NabdzApp.config.chartDays); const data = Object.values(history).slice(-NabdzApp.config.chartDays); if (labels.length === 0) { const chartCtx = ctx.getContext('2d'); chartCtx.font = '16px Tajawal'; chartCtx.fillStyle = '#666'; chartCtx.textAlign = 'center'; chartCtx.fillText('لا توجد بيانات كافية', ctx.width / 2, ctx.height / 2); return; } this.instance = new Chart(ctx, { type: 'line', data: { labels: labels, datasets: [{ label: 'مزاج نبض الجزائر', data: data, borderColor: 'rgba(210, 16, 52, 1)', backgroundColor: 'rgba(210, 16, 52, 0.2)', tension: 0.4, fill: true }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { ticks: { callback: v => v > 0 ? '😊' : v < 0 ? '😔' : '😐' } } }, plugins: { legend: { labels: { font: { family: 'Tajawal' } } } } }); } catch (error) { console.error("Error rendering mood chart:", error); } } }
+  },
+  // --- Theme, UI, Chatbot, Soul, Reset ---
+  theme: { init() { const toggle = document.getElementById('themeToggle'); const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; const storedTheme = localStorage.getItem(NabdzApp.config.themeKey); let isDark; if (storedTheme === 'light' || storedTheme === 'dark') { isDark = storedTheme === 'dark'; } else { isDark = prefersDark; } this.apply(isDark); if (storedTheme !== 'light' && storedTheme !== 'dark') { if(toggle) toggle.style.display = 'none'; } if(toggle) toggle.addEventListener('click', () => { if(toggle) toggle.style.display = 'block'; this.toggle(); }); }, toggle() { const isDark = document.documentElement.classList.toggle('dark'); this.apply(isDark); localStorage.setItem(NabdzApp.config.themeKey, isDark ? 'dark' : 'light'); }, apply(isDark) { const root = document.documentElement; if (isDark) { root.style.setProperty('--bg', '#121212'); root.style.setProperty('--card', '#1e1e1e'); root.style.setProperty('--txt', '#e0e0e0'); root.style.setProperty('--muted', '#aaa'); } else { root.style.setProperty('--bg', '#f5f5f5'); root.style.setProperty('--card', '#ffffff'); root.style.setProperty('--txt', '#222222'); root.style.setProperty('--muted', '#666666'); } } },
+  ui: { init() { const yearEl = document.getElementById('year'); if(yearEl) yearEl.textContent = new Date().getFullYear(); const backToTopButton = document.getElementById('backToTop'); if(backToTopButton) window.addEventListener('scroll', () => { backToTopButton.classList.toggle('show', window.scrollY > 300); }); if(backToTopButton) backToTopButton.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); }); } },
+  chatbot: { elements: {}, state: { userName: null }, init() { this.elements = { bubble: document.getElementById('chatBubble'), window: document.getElementById('chatWindow'), body: document.getElementById('chatBody'), input: document.getElementById('chatInput'), sendBtn: document.getElementById('chatSendBtn'), typingIndicator: document.getElementById('typingIndicator') }; this.state.userName = sessionStorage.getItem('nabdzUserName') || null; if(this.elements.bubble) this.elements.bubble.addEventListener('click', () => this.toggle()); if(this.elements.sendBtn) this.elements.sendBtn.addEventListener('click', () => this.sendMessage()); if(this.elements.input) this.elements.input.addEventListener('keypress', (e) => { if (e.key === 'Enter') this.sendMessage(); }); }, toggle() { if(this.elements.window) this.elements.window.classList.toggle('open'); if (!this.state.userName && this.elements.window && this.elements.window.classList.contains('open')) { setTimeout(() => this.addMessage("بما أننا نتحدث لأول مرة، هل لي أن أعرف اسمك؟", 'bot'), 1000); } }, sendMessage() { const message = this.elements.input ? this.elements.input.value.trim() : ''; if (!message) return; this.addMessage(message, 'user'); if(this.elements.input) this.elements.input.value = ''; this.showTypingIndicator(); setTimeout(() => { this.hideTypingIndicator(); const response = this.generateResponse(message); this.addMessage(response, 'bot'); }, 1000 + Math.random() * 1000); }, addMessage(text, sender) { const messageDiv = document.createElement('div'); messageDiv.classList.add('chat-message', sender); messageDiv.textContent = text; if(this.elements.body) this.elements.body.appendChild(messageDiv); if(this.elements.body) this.elements.body.scrollTop = this.elements.body.scrollHeight; }, showTypingIndicator() { if(this.elements.typingIndicator) this.elements.typingIndicator.style.display = 'flex'; }, hideTypingIndicator() { if(this.elements.typingIndicator) this.elements.typingIndicator.style.display = 'none'; }, generateResponse(input) { const lowerInput = input.toLowerCase(); if (!this.state.userName && (lowerInput.includes('اسمي') || lowerInput.includes('أنا'))) { const name = input.split(' ').pop(); this.state.userName = name; sessionStorage.setItem('nabdzUserName', this.state.userName); return `سعيد بلقائك يا ${this.state.userName}! الآن، كيف يمكنني مساعدتك؟`; } if (lowerInput.includes('مولد الهوية') || lowerInput.includes('هويتي')) { NabdzApp.identity.open(); return "بالتأكيد! يمكنك الآن إنشاء هويتك الجزائرية الخاصة."; } if (lowerInput.includes('كيف حالك')) { if (NabdzApp.state.currentMood === 'negative') return "أشعر ببعض القلق lately، يبدو أن نبض الجزائر متوتر. أتمنى أن يتحسن الوضع قريباً."; if (NabdzApp.state.currentMood === 'positive') return "أنا بخير والحمد لله! أرى تفاؤلاً في الأفق، وهذا يسرني جداً!"; return "أنا في حالة تأمل دائم، أحلل البيانات وأراقب نبض البلاد. شكراً لسؤالك."; } if (lowerInput.includes('شكرا')) { const moodResponses = { negative: "لا شكر على واجب، أتمنى أن أكون قد ساعدت في تحسين مزاجك.", positive: "العفو! يسعدني أن أراك بخير!", neutral: "على الرحب والسعة، متى احتجت أي شيء، أنا هنا." }; return moodResponses[NabdzApp.state.currentMood]; } return "هذا سؤال مثير للاهتمام. أنا لا أزال أتعلم، لكن يمكنني مساعدتك في معرفة مزاج الجزائر أو محاكاة المشاعر. هل هناك شيء آخر؟"; } },
+  soul: { canvas: null, ctx: null, pulse: 0, init() { this.canvas = document.getElementById('digital-soul-canvas'); if (!this.canvas) return; this.ctx = this.canvas.getContext('2d'); this.canvas.width = this.canvas.offsetWidth; this.canvas.height = this.canvas.offsetHeight; this.animate(); }, animate() { if (!this.ctx) return; this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); const centerX = this.canvas.width / 2; const centerY = this.canvas.height / 2; const baseRadius = Math.min(centerX, centerY) * 0.7; const moodScore = NabdzApp.state.currentMood === 'positive' ? 2 : NabdzApp.state.currentMood === 'negative' ? -2 : 0; const countEl = document.getElementById('visit-count'); const visitors = countEl ? parseInt(countEl.textContent) : 1; const dynamicRadius = baseRadius + (visitors / 10) + Math.sin(this.pulse) * 5; const hue = 120 + (moodScore * 60); const glowGradient = this.ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, dynamicRadius * 1.5); glowGradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0.3)`); glowGradient.addColorStop(1, 'transparent'); this.ctx.fillStyle = glowGradient; this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height); const gradient = this.ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, dynamicRadius); gradient.addColorStop(0, `hsla(${hue}, 100%, 60%, 0.8)`); gradient.addColorStop(0.7, `hsla(${hue}, 100%, 50%, 0.5)`); gradient.addColorStop(1, `hsla(${hue}, 100%, 40%, 0.2)`); this.ctx.beginPath(); this.ctx.arc(centerX, centerY, dynamicRadius, 0, Math.PI * 2); this.ctx.fillStyle = gradient; this.ctx.fill(); this.pulse += 0.05; NabdzApp.state.soulAnimationId = requestAnimationFrame(() => this.animate()); } },
+  resetProfile() { if (confirm('هل أنت متأكد من إعادة تعيين ملفك الشخصي؟')) { localStorage.removeItem(NabdzApp.config.visitCountKey); localStorage.removeItem(NabdzApp.config.moodHistoryKey); sessionStorage.removeItem('nabdzUserName'); alert('تمت إعادة التعيين بنجاح!'); location.reload(); } },
+  init() {
+    console.log('Nabdz App Initializing...');
+    this.theme.init();
+    this.ui.init();
+    this.mood.init();
+    this.chatbot.init();
+    this.soul.init();
+    this.energy.init();
+    console.log('Nabdz App Initialized.');
+  }
+};
+
+// التهيئة الرئيسية عند تحميل الصفحة
+window.addEventListener('DOMContentLoaded', () => {
+  NabdzApp.init();
+  
+  // ربط التعليقات بشكل آمن ومنفصل
+  const findAndAttachCommentListener = () => {
+    const submitButton = document.querySelector('#comment-post-form input[type="submit"]');
+    if (submitButton && !submitButton.hasAttribute('data-nabdz-listener')) {
+      submitButton.setAttribute('data-nabdz-listener', 'true');
+      submitButton.addEventListener('click', () => {
+        setTimeout(() => { NabdzApp.energy.addPoints(5); console.log('Nabdz: 5 points added for commenting.'); }, 1000);
+      });
+    }
+  };
+  setInterval(findAndAttachCommentListener, 2000);
+  findAndAttachCommentListener();
+});
+//]]>
+</script>
+<script src='path/to/your/app.js'/>
+<script>
+  window.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; {
+    NabdzApp.init();
+  });
+</script>
+  <script src='https://cdn.jsdelivr.net/gh/all09sajida-amazon/nabddz-engine@v2.0.0/app.js'/>
+<script>
+  window.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; {
+    NabdzApp.init();
+  });
+</script>
+  </body>
+</html>
